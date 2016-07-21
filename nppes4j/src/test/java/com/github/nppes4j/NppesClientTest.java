@@ -31,7 +31,7 @@ import org.junit.Test;
  */
 public class NppesClientTest
 {
-    
+
     public NppesClientTest()
     {
     }
@@ -40,9 +40,9 @@ public class NppesClientTest
     {
         try
         {
-            int skip=0;
-            int size=10;
-            for(int i=0;i<5;i++)
+            int skip = 0;
+            int size = 10;
+            for (int i = 0; i < 5; i++)
             {
                 NppesClient.forNpi1()
                         .withLastName("Robinson")
@@ -52,7 +52,7 @@ public class NppesClientTest
                         .limit(size)
                         .prettyPrint()
                         .download(new File("c:/tmp/nppes/download-tests.json"), false);
-                skip+=size;
+                skip += size;
             }
         }
         catch (Exception e)
@@ -60,20 +60,20 @@ public class NppesClientTest
             e.printStackTrace();
         }
     }
-    
+
     @Test public void testNpi1LastNameStateSearch()
     {
         try
         {
-            List<IndividualProvider> list=NppesClient.forNpi1()
+            List<IndividualProvider> list = NppesClient.forNpi1()
                     .withLastName("Smith")
                     .inState(UsState.TX)
                     .search();
-            
+
             System.out.println("Results found: " + list.size());
-            for(IndividualProvider prov : list)
+            for (IndividualProvider prov : list)
             {
-                System.out.printf("%s, %s(%s)\n",prov.getLastName(),prov.getFirstName(),prov.getNumber());   
+                System.out.printf("%s, %s(%s)\n", prov.getLastName(), prov.getFirstName(), prov.getNumber());
             }
         }
         catch (Exception e)
@@ -81,30 +81,30 @@ public class NppesClientTest
             e.printStackTrace();
         }
     }
-    
+
     @Test public void testOrganizationSearch()
     {
         try
         {
-            List<OrganizationalProvider> list=NppesClient.forNpi2()
+            List<OrganizationalProvider> list = NppesClient.forNpi2()
                     .withOrganizationName("Methodist*")
                     .inState(UsState.TX)
                     .inCity("Houston")
                     .limit(5)
                     .skip(5)
                     .search();
-            
-            System.out.println("Results found: "+ list.size());
-            for(Provider provider : list)
+
+            System.out.println("Results found: " + list.size());
+            for (Provider provider : list)
             {
-                System.out.printf("[%s] %s\n",provider.getNumber(),provider.getName());
+                System.out.printf("[%s] %s\n", provider.getNumber(), provider.getName());
                 System.out.println("\tAddresses");
-                for(Address  addr :  provider.getAddresses())
+                for (Address addr : provider.getAddresses())
                 {
-                    System.out.printf("\t\t%s, %s %s\n",addr.getLine1(),addr.getCity(),addr.getState());
+                    System.out.printf("\t\t%s, %s %s\n", addr.getLine1(), addr.getCity(), addr.getState());
                 }
             }
-                    
+
         }
         catch (Exception e)
         {
@@ -117,31 +117,30 @@ public class NppesClientTest
     {
         try
         {
-            List<Provider> list= NppesClient.loadLocal("c:/tmp/nppes/organization.json");
-            System.out.printf("Results Found: %s\n",list.size());
-            int i=1;
-            for(Provider prov : list)
+            List<Provider> list = NppesClient.loadLocal("c:/tmp/nppes/organization.json");
+            System.out.printf("Results Found: %s\n", list.size());
+            int i = 1;
+            for (Provider prov : list)
             {
-                System.out.printf("[%s] %s : %s(%s)\n",(i++),prov.getType().getNppesName(),prov.getName(),prov.getNumber());
+                System.out.printf("[%s] %s : %s(%s)\n", (i++), prov.getType().getNppesName(), prov.getName(), prov.getNumber());
                 System.out.println("Auth Official");
-//                AuthorizedOfficial auth=prov.getAuthorizedOfficial();
-//                System.out.printf("\t%s %s, %s(%s)\n",auth.getTitle(),auth.getLastName(),auth.getFirstName(),auth.getTelephoneNumber());
+
                 System.out.println("Addresses");
-                for(Address address : prov.getAddresses())
+                for (Address address : prov.getAddresses())
                 {
-                    System.out.printf("\t%s %s, %s,  %s %s\n",address.getLine1(),address.getLine2(),address.getCity(),address.getState(),address.getPostalCode());
+                    System.out.printf("\t%s %s, %s,  %s %s\n", address.getLine1(), address.getLine2(), address.getCity(), address.getState(), address.getPostalCode());
                 }
-                
+
                 System.out.println("Identifiers");
-                for(Identifier id : prov.getIdentifiers())
+                for (Identifier id : prov.getIdentifiers())
                 {
-                    System.out.printf("\t[%s] %s @ %s - %s\n",id.getId(),id.getIssuer(),id.getState(),id.getDescription());
+                    System.out.printf("\t[%s] %s @ %s - %s\n", id.getId(), id.getIssuer(), id.getState(), id.getDescription());
                 }
-                
+
                 System.out.println("Taxanomies");
-                for(Taxonomy tax : prov.getTaxanomies())
+                for (Taxonomy tax : prov.getTaxanomies())
                 {
-                    System.out.printf("\t%s(%s) - %s\n",tax.getLicense(),tax.getState(),tax.getDescription());
+                    System.out.printf("\t%s(%s) - %s\n", tax.getLicense(), tax.getState(), tax.getDescription());
                 }
             }
         }
@@ -150,5 +149,5 @@ public class NppesClientTest
             e.printStackTrace();
         }
     }
-    
+
 }
