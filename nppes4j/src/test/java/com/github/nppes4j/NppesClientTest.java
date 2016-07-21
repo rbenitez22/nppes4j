@@ -66,7 +66,7 @@ public class NppesClientTest
         try
         {
             List<IndividualProvider> list=NppesClient.forNpi1()
-                    .withLastName("Bakunas")
+                    .withLastName("Smith")
                     .inState(UsState.TX)
                     .search();
             
