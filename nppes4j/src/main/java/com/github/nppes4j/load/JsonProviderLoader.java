@@ -44,9 +44,9 @@ public class JsonProviderLoader
         Provider provider = createProviderInstance();
         provider.setNumber(number);
         
-        List<Address> addresses=loadAddresses(source);
-        List<Identifier> identifiers=loadIdentifiers(source);
-        List<Taxonomy> taxonomies=loadTaxonomies(source);
+        List<Address> addresses=loadAddresses();
+        List<Identifier> identifiers=loadIdentifiers();
+        List<Taxonomy> taxonomies=loadTaxonomies();
         
         provider.setNumber(number);
         provider.setAddresses(addresses);
@@ -85,13 +85,13 @@ public class JsonProviderLoader
         
     }
     
-     public List<Taxonomy> loadTaxonomies(JsonObject object) throws NppesException
+     public List<Taxonomy> loadTaxonomies() throws NppesException
     {
         JsonResultKeys key=JsonResultKeys.TAXONOMIES;
-        assertHasKey(object, key);
+        assertHasKey(source, key);
         
         List<Taxonomy> list= new ArrayList<>();
-        JsonArray array=object.getJsonArray(key.getNppesName());
+        JsonArray array=source.getJsonArray(key.getNppesName());
         
         for(int i=0;i<array.size();i++)
         {
@@ -121,13 +121,13 @@ public class JsonProviderLoader
         return tax;
     }
     
-    public List<Identifier> loadIdentifiers(JsonObject object) throws NppesException
+    public List<Identifier> loadIdentifiers() throws NppesException
     {
         JsonResultKeys key=JsonResultKeys.IDENTIFIERS;
-        assertHasKey(object, key);
+        assertHasKey(source, key);
         
         List<Identifier> list= new ArrayList<>();
-        JsonArray array=object.getJsonArray(key.getNppesName());
+        JsonArray array=source.getJsonArray(key.getNppesName());
         
         for(int i=0;i<array.size();i++)
         {
@@ -157,13 +157,13 @@ public class JsonProviderLoader
         return id;
     }
     
-    public List<Address> loadAddresses(JsonObject object) throws NppesException
+    public List<Address> loadAddresses() throws NppesException
     {
         JsonResultKeys key=JsonResultKeys.ADDRESSES;
-        assertHasKey(object, key);
+        assertHasKey(source, key);
         
         List<Address> list= new ArrayList<>();
-        JsonArray addresses=object.getJsonArray(key.getNppesName());
+        JsonArray addresses=source.getJsonArray(key.getNppesName());
         for(int i=0;i<addresses.size();i++)
         {
             JsonObject jsonAddr=addresses.getJsonObject(i);
