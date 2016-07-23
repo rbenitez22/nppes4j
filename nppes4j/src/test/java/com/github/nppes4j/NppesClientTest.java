@@ -35,6 +35,11 @@ public class NppesClientTest
     public NppesClientTest()
     {
     }
+    
+    @Test public void testSureFail()
+    {
+        throw new AssertionError("I object");
+    }
 
     @Test public void testDownload()
     {
@@ -51,7 +56,7 @@ public class NppesClientTest
                         .skip(skip)
                         .limit(size)
                         .prettyPrint()
-                        .download(new File("c:/tmp/nppes/download-tests.json"), false);
+                        .download(new File("/tmp/nppes/download-tests.json"), false);
                 skip += size;
             }
         }
@@ -112,7 +117,7 @@ public class NppesClientTest
         }
     }
 
-    @Test
+  //  @Test
     public void testGenereric()
     {
         try
