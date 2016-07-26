@@ -36,11 +36,6 @@ public class NppesClientTest
     {
     }
     
-    @Test public void testSureFail()
-    {
-        throw new AssertionError("I object");
-    }
-
     @Test public void testDownload()
     {
         try
@@ -72,6 +67,7 @@ public class NppesClientTest
         {
             List<IndividualProvider> list = NppesClient.forNpi1()
                     .withLastName("Smith")
+                    .withFirstName("John")
                     .inState(UsState.TX)
                     .search();
 
