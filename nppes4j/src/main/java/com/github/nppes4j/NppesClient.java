@@ -47,12 +47,12 @@ public final class NppesClient<T extends Provider>
     
     public NppesClient<T> with(SearchField field, String criterion)
     {
-        addCriteria(criterion, field);
+        addCriterion(criterion, field);
         
         return this;
     }
 
-    public void addCriteria(String criterion, SearchField field) throws IllegalArgumentException
+    public void addCriterion(String criterion, SearchField field) throws IllegalArgumentException
     {
         validateCriterion(criterion, field);
         
